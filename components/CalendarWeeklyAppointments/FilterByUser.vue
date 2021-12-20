@@ -29,6 +29,8 @@ export default {
         type: title,
       });
       this.$store.dispatch("getAppoinments");
+      this.$store.dispatch("getFilters");
+      
       return title;
     },
   },

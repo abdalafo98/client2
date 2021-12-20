@@ -1,47 +1,130 @@
 <template>
-  <div class="event">
-    <div class="event-desc">
-      {{ userName }}
-    </div>
-    <div class="event-time">
-      {{ appointmentTimeFrom }}
-      to
-      {{ appointmentTimeTo }}
-    </div>
+  <div class="">
+    <b-card class="card">
+      <div class="card-Header">
+        <div class="left">
+          <i
+            class="fas fa-exclamation-triangle"
+            style="font-size: 14px; color: orange; margin-top: 3px"
+          ></i>
+          <span class="name">{{ patientName }}</span>
+        </div>
+        <Ellipses />
+
+        <svg
+          @click="value = !value"
+          id="icon"
+          style="color: #0b5efc"
+          width="30"
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="expand-alt"
+          class="svg-inline--fa fa-expand-alt fa-w-14"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+        >
+          <path
+            fill="currentColor"
+            d="M212.686 315.314L120 408l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C10.697 480 0 469.255 0 456V344c0-21.382 25.803-32.09 40.922-16.971L72 360l92.686-92.686c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.249 6.248 6.249 16.378 0 22.627zm22.628-118.628L328 104l-32.922-31.029C279.958 57.851 290.666 32 312.048 32h112C437.303 32 448 42.745 448 56v112c0 21.382-25.803 32.09-40.922 16.971L376 152l-92.686 92.686c-6.248 6.248-16.379 6.248-22.627 0l-25.373-25.373c-6.249-6.248-6.249-16.378 0-22.627z"
+          ></path>
+        </svg>
+        <!-- <i
+          @click="value = !value"
+          class="fas fa-compress-alt"
+          id="icon"
+          style="color: #0b5efc"
+        >
+          <Ellipses />
+        </i> -->
+        <i class="fas fa-expand-alt"></i>
+      </div>
+      <div class="cardBody">
+        <b-card-text>{{ doctorName }}</b-card-text>
+        <b-card-text>{{ timeFrom }}</b-card-text>
+        <b-card-text>{{ timeTo }}</b-card-text>
+        <b-card-text>{{ procedure }}</b-card-text>
+      </div>
+    </b-card>
+    <CardEvenetonClick v-if="value == true" />
   </div>
 </template>
 
 <script>
+import CardEvenetonClick from "./CardEvenetonClick.vue";
+import Ellipses from "./Ellipses.vue";
 export default {
-  props: {
-    userName: String,
-    appointmentTimeFrom: String,
-    appointmentTimeTo: String,
+  name: "CardEvent",
+  components: { CardEvenetonClick, Ellipses },
+  data() {
+    return {
+      value: false,
+    };
   },
+  props: {
+    patientName: String,
+    doctorName: String,
+    timeFrom: String,
+    timeTo: String,
+    procedure: String,
+  },
+  methods: {},
 };
 </script>
 
-<style>
-.event {
-  flex: 0 0 auto;
-  font-size: 13px;
-  border-radius: 4px;
-  padding: 5px;
-  margin-bottom: 5px;
-  line-height: 14px;
-  background: #eceef8;
-  border: 1px solid #0b5efc;
+<style scoped>
+.fa-compress-alt {
   color: #0b5efc;
-  text-decoration: none;
-  margin-top: 10;
+  display: flex;
+  align-items: center !important;
+  flex-flow: row-reverse !important;
+  margin: 0px 10px 0 0 !important;
 }
-
-.event-desc {
+.a {
+  margin: 100px 0 100px 200px;
+  display: flex;
+  width: 100%;
+}
+.card {
+  width: 90%;
+  height: 160px;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  border-radius: 5px;
+}
+.card-Header {
+  display: flex;
+  flex-direction: row;
+  background-color: #eceef85e;
+  width: 100%;
+  height: 40px;
+  justify-content: space-between;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #0b5efc;
+}
+.card-body {
+  padding: 0;
+  background-color: #eceef85e;
+}
+.cardBody {
+  padding-left: 4%;
+  padding-top: 2%;
   color: #949191;
-  margin: 3px 0 7px 0;
-  text-decoration: none;
-  font-size: 80%;
-  font-family: sans-serif;
-  text-align: left;
+}
+#icon {
+  float: right;
+}
+.fa-compress-alt {
+  margin: 10px 10px 0 0;
+}
+.name {
+  margin-left: 10px;
+  color: #0b5efc;
+}
+.left {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 0 10px;
 }
 </style>

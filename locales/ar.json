@@ -13,10 +13,10 @@
     "Procedure": "إجراء",
     "assistant": "مساعد"
   },
-  "FilterByUserStore": {
-    "doctor": "doctors",
-    "room": "rooms",
-    "Procedure": "procedures",
-    "assistant": "assistants"
+  "FilterByUserStore":{
+    "doctor":"doctor",
+    "room":"rooms",
+    "Procedure":"procedures",
+    "assistant":"assistant"
   }
 }
