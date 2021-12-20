@@ -3,7 +3,7 @@
     <div class="son" v-if="getLanguage === 'en'">
       <ArrowHeaderRight @increase-date="increaseDate" />
       <h2 class="week-from-to">
-        <WeekFromTo  />
+        <WeekFromTo />
       </h2>
       <ArrowHeaderLeft @decrease-date="decreaseDate" />
     </div>
@@ -13,7 +13,7 @@
       <h2 class="week-from-to">
         <WeekFromTo />
       </h2>
-      <ArrowHeaderRight  @increase-date="increaseDate"/>
+      <ArrowHeaderRight @increase-date="increaseDate" />
     </div>
   </div>
 </template>
@@ -39,15 +39,16 @@ export default {
         status: "change_startDate",
       });
       this.$store.dispatch("getAppoinments");
+      this.$store.dispatch("getFilters");
     },
-       increaseDate() {
-
+    increaseDate() {
       this.$store.dispatch("addDays", {
         date: this.$store.getters.getStartDate,
         num: 7,
         status: "change_startDate",
       });
       this.$store.dispatch("getAppoinments");
+      this.$store.dispatch("getFilters");
     },
   },
 };

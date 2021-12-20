@@ -14,10 +14,10 @@
     "assistant":"Assistant"
 },
 "FilterByUserStore":{
-  "doctor":"doctors",
+  "doctor":"doctor",
   "room":"rooms",
   "Procedure":"procedures",
-  "assistant":"assistants"
+  "assistant":"assistant"
 }
   
 }

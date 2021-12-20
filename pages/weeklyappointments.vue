@@ -16,7 +16,7 @@ export default {
     SideBar,
   },
   created() {
-      // this.$cookies.set('lang', this.$store.getters.getLang)
+    // this.$cookies.set('lang', this.$store.getters.getLang)
 
     this.$store.commit("changeStartDate", {
       startDate: this.getStratDate(new Date(), 6),
@@ -33,8 +33,8 @@ export default {
       return curr;
     },
     onChange(lang) {
-      this.$cookies.set('lang', lang)
-      
+      this.$cookies.set("lang", lang);
+
       if (lang === "ar") {
         this.$store.dispatch("setDirection", {
           direction: "rtl",
@@ -49,7 +49,6 @@ export default {
           position: "end",
         });
       } else if (lang === "en") {
-
         this.$store.dispatch("setDirection", {
           direction: "ltr",
         });
@@ -69,6 +68,9 @@ export default {
 
   computed: {
     CalenderLanguage() {
+      this.$store.dispatch("getFilters");
+      this.$store.dispatch("getAppoinments");
+
       var direction = this.$store.getters.getDirection;
       var alignment = this.$store.getters.getAlignment;
       var position = this.$store.getters.getPosition;
