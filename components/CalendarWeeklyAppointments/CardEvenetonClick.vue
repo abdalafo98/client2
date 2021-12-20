@@ -1,29 +1,30 @@
 <template>
-  <div class="a">
-    <b-card class="card">
-      <div class="card-Header">
-        <div class="left">
-          <i
-            class="fas fa-exclamation-triangle"
-            style="font-size: 14px; color: orange; margin-top: 3px"
-          ></i>
-          <h6 class="name">Name</h6>
-        </div>
-        <i class="fas fa-compress-alt" id="icon" style="color: #0b5efc"
-          ><Ellipses/>
-        </i>
+  <b-card class="card">
+    <div class="card-Header">
+      <div class="left">
+        <i
+          class="fas fa-exclamation-triangle"
+          style="font-size: 14px; color: orange; margin-top: 3px"
+        ></i>
+        <h6 class="name">Name</h6>
       </div>
-      <div class="cardBody">
-        <b-card-text>Doctor name</b-card-text>
-        <b-card-text>time</b-card-text>
-        <b-card-text>procedure</b-card-text>
-        <b-card-text>Assistant</b-card-text>
-        <b-card-text>Room No</b-card-text>
-        <b-card-text>Insurance</b-card-text>
-        <b-card-text>Priority</b-card-text>
-      </div>
-    </b-card>
-  </div>
+      <i
+        class="fas fa-compress-alt"
+        id="icon"
+        style="color: #0b5efc; margin-bottom: 3px"
+        ><Ellipses
+      /></i>
+    </div>
+    <div class="cardBody">
+      <b-card-text>Doctor name</b-card-text>
+      <b-card-text>time</b-card-text>
+      <b-card-text>procedure</b-card-text>
+      <b-card-text>Assistant</b-card-text>
+      <b-card-text>Room No</b-card-text>
+      <b-card-text>Insurance</b-card-text>
+      <b-card-text>Priority</b-card-text>
+    </div>
+  </b-card>
 </template>
 <script
   src="https://kit.fontawesome.com/a076d05399.js"
@@ -34,8 +35,8 @@
 import Ellipses from "./Ellipses.vue";
 export default {
   components: {
-    Ellipses
-},
+    Ellipses,
+  },
   name: "Card",
 };
 </script>
@@ -50,7 +51,7 @@ export default {
 }
 
 .card {
-  width: 25%;
+  width: 90%;
   height: 375px;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
     rgba(90, 125, 188, 0.05) 0px 0.25em 1em;

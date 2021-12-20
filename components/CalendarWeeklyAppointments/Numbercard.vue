@@ -1,6 +1,6 @@
 <template>
   <div class="s">
-    <b-card class="card">
+    <b-card class="card1">
       <div class="cardBody">
         <div class="number">{{ number }}</div>
         <b-card-text style="color: #0b5efc">Duration</b-card-text>
@@ -24,17 +24,18 @@ export default {
   display: flex;
   justify-content: center;
 }
-.card {
+.card1 {
   width: 90%;
   height: 8rem;
-  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
-    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   border-radius: 5px;
   justify-content: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-radius: 0.25rem;
 }
-.card-body {
-  background-color: rgba(236, 238, 248, 0.36863);
-}
+
 .cardBody {
   display: flex;
   flex-direction: row;

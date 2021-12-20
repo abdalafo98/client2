@@ -8,7 +8,7 @@ const Calendar = {
     weeklyHeaderDays: "",
     list: [],
     appointmentsList: [],
-    type: "rooms",
+    type: "doctor",
     filters: "",
     dailyDate: "",
     lang: "ar",

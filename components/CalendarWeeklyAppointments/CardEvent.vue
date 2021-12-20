@@ -41,10 +41,10 @@
         <i class="fas fa-expand-alt"></i>
       </div>
       <div class="cardBody">
-        <b-card-text>{{ doctorName }}</b-card-text>
-        <b-card-text>{{ timeFrom }}</b-card-text>
-        <b-card-text>{{ timeTo }}</b-card-text>
-        <b-card-text>{{ procedure }}</b-card-text>
+        <span class="card-text">{{ doctorName }} </span><br>
+        <span class="card-text">{{ timeFrom }}</span><br>
+        <span class="card-text">{{ timeTo }}</span><br>
+        <span class="card-text">{{ procedure }}</span>
       </div>
     </b-card>
     <CardEvenetonClick v-if="value == true" />
@@ -81,13 +81,19 @@ export default {
   flex-flow: row-reverse !important;
   margin: 0px 10px 0 0 !important;
 }
+#__BVID__45__BV_toggle_ {
+    padding: 0.5rem 1rem;
+    font-size: inherit !important;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}
 .a {
   margin: 100px 0 100px 200px;
   display: flex;
   width: 100%;
 }
 .card {
-  width: 90%;
+  width: 100%;
   height: 160px;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
     rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
@@ -98,17 +104,17 @@ export default {
   flex-direction: row;
   background-color: #eceef85e;
   width: 100%;
-  height: 40px;
   justify-content: space-between;
   border-radius: 5px 5px 0 0;
   border-bottom: 1px solid #0b5efc;
+  padding-right: 10px;
 }
+
 .card-body {
   padding: 0;
   background-color: #eceef85e;
 }
 .cardBody {
-  padding-left: 4%;
   padding-top: 2%;
   color: #949191;
 }
