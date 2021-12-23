@@ -14,7 +14,7 @@ export default {
       var options = {
         weekday: "long",
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
       };
 
@@ -44,7 +44,7 @@ export default {
 <style>
 .week-from-to {
   color: #949191;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 100;
 }
 </style>

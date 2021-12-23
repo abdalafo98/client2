@@ -5,22 +5,39 @@ const Login = {
   state: {
     message: "",
     forgetMessage: "",
-    phoneNumber: "", 
+    phoneNumber: "",
+    tokenId: "",
+    workingHours: {},
+  },
+  mutations: {
+    setWorkingHour(state, payload) {
+      return (state.workingHours = payload.workingHours);
+    },
   },
   actions: {
+    changeWorkingHours(context, payload) {
+      console.log(payload,"hhhhuuuhuhuhuh")
+      context.commit("setWorkingHour", {
+        workingHours: payload.workingHours,
+      });
+    },
     async LOGIN(context, payload) {
       try {
         const result = await axios.post(
           "https://services.agentsoncloud.com/login",
           payload
         );
-        this.$router.push("/weeklyappointments");
+        if (result.data.firstTime) {
+          this.$router.push("/");
+        } else {
+          this.$router.push("/workinghour");
+        }
         document.cookie = `token=${result.data.token}`;
         console.log(result);
+        context.state.tokenId=result.data.token;
       } catch (err) {
         console.log(err.response.data.message);
         console.log(err.response.status);
-
         context.state.message = err.response.data.message;
       }
     },
@@ -32,8 +49,7 @@ const Login = {
         );
         console.log(result);
         console.log(result.data.token);
-        const token = result.data.token;
-        const decoded = jwt.verify(token,"change this key later on 00");
+        const decoded = jwt.verify(token, "change this key later on 00");
         context.state.phoneNumber = decoded.phone;
         console.log(context.state.phoneNumber);
         this.$router.push("/forgetCode");
@@ -55,7 +71,6 @@ const Login = {
       } catch (err) {
         console.log(err.response.data.message);
         console.log(err.response.status);
-        
       }
     },
     async restPassword(context, payload) {
@@ -69,11 +84,9 @@ const Login = {
       } catch (err) {
         console.log(err.response.data.message);
         console.log(err.response.status);
-        
       }
     },
   },
-  mutations: {},
   getters: {
     getMessage(state) {
       return state.message;
@@ -83,6 +96,12 @@ const Login = {
     },
     getPhoneNumber(state) {
       return state.phoneNumber;
+    },
+    getTokenId(state) {
+      return state.tokenId;
+    },
+    getWorkingHours(state) {
+      return state.workingHours;
     },
   },
 };

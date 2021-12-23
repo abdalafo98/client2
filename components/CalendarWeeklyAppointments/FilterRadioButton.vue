@@ -7,7 +7,6 @@
       name="lang"
       :value="title"
       @change="filterData"
-      
     />
     <label for="En">{{ title }}</label>
     <span class="checkmark"></span>
@@ -20,7 +19,11 @@ export default {
     title: String,
     type: String,
   },
-
+  computed: {
+    filterType() {
+      return this.$store.getters.getFilterData;
+    },
+  },
   methods: {
     filterData() {
       this.$emit("filter-data");

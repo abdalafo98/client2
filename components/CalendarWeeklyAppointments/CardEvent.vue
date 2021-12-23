@@ -10,12 +10,28 @@
           <span class="name">{{ patientName }}</span>
         </div>
         <Ellipses />
-
+        <!-- <i
+          @click="value = !value"
+          class="fas fa-compress-alt"
+          id="icon"
+          style="color: #0b5efc"
+        >
+          <Ellipses />
+        </i> -->
+        <i class="fas fa-expand-alt"></i>
+      </div>
+      <div class="cardBody">
+        <span class="card-text">{{ doctorName }} </span><br />
+        <span class="card-text">{{ timeFrom }} - {{ timeTo }}</span
+        ><br />
+        <span class="card-text">{{ procedure }}</span>
+      </div>
+      <span v-b-modal="'my-modal'">
         <svg
           @click="value = !value"
           id="icon"
-          style="color: #0b5efc"
-          width="30"
+          style="color: #0b5efc; position: absolute; right: 5px; bottom: 4px"
+          width="15"
           aria-hidden="true"
           focusable="false"
           data-prefix="fas"
@@ -30,33 +46,20 @@
             d="M212.686 315.314L120 408l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C10.697 480 0 469.255 0 456V344c0-21.382 25.803-32.09 40.922-16.971L72 360l92.686-92.686c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.249 6.248 6.249 16.378 0 22.627zm22.628-118.628L328 104l-32.922-31.029C279.958 57.851 290.666 32 312.048 32h112C437.303 32 448 42.745 448 56v112c0 21.382-25.803 32.09-40.922 16.971L376 152l-92.686 92.686c-6.248 6.248-16.379 6.248-22.627 0l-25.373-25.373c-6.249-6.248-6.249-16.378 0-22.627z"
           ></path>
         </svg>
-        <!-- <i
-          @click="value = !value"
-          class="fas fa-compress-alt"
-          id="icon"
-          style="color: #0b5efc"
-        >
-          <Ellipses />
-        </i> -->
-        <i class="fas fa-expand-alt"></i>
-      </div>
-      <div class="cardBody">
-        <span class="card-text">{{ doctorName }} </span><br>
-        <span class="card-text">{{ timeFrom }}</span><br>
-        <span class="card-text">{{ timeTo }}</span><br>
-        <span class="card-text">{{ procedure }}</span>
-      </div>
+      </span>
     </b-card>
-    <CardEvenetonClick v-if="value == true" />
+    <!-- <CardEvenetonClick v-if="value == true" /> -->
+    <Newexpandedcard v-if="value == true" />
   </div>
 </template>
 
 <script>
 import CardEvenetonClick from "./CardEvenetonClick.vue";
 import Ellipses from "./Ellipses.vue";
+import Newexpandedcard from "./Newexpandedcard.vue";
 export default {
   name: "CardEvent",
-  components: { CardEvenetonClick, Ellipses },
+  components: { CardEvenetonClick, Ellipses, Newexpandedcard },
   data() {
     return {
       value: false,
@@ -82,10 +85,10 @@ export default {
   margin: 0px 10px 0 0 !important;
 }
 #__BVID__45__BV_toggle_ {
-    padding: 0.5rem 1rem;
-    font-size: inherit !important;
-    line-height: 1.5;
-    border-radius: 0.3rem;
+  padding: 0.5rem 1rem;
+  font-size: inherit !important;
+  line-height: 1.5;
+  border-radius: 0.3rem;
 }
 .a {
   margin: 100px 0 100px 200px;
@@ -95,19 +98,20 @@ export default {
 .card {
   width: 100%;
   height: 160px;
-  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
-    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   border-radius: 5px;
 }
 .card-Header {
   display: flex;
   flex-direction: row;
   background-color: #eceef85e;
-  width: 100%;
   justify-content: space-between;
   border-radius: 5px 5px 0 0;
   border-bottom: 1px solid #0b5efc;
-  padding-right: 10px;
+  padding-right: 5px;
+  font-size: 12px;
+  align-items: center;
+  width: 100%;
+  gap: 72px;
 }
 
 .card-body {

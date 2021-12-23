@@ -2,7 +2,7 @@
   <nav role="navigation">
     <ul>
       <li class="list-b1">
-        <a href="#" aria-haspopup="true">Doctors</a>
+        <a href="#" aria-haspopup="true">{{ userName }}</a>
         <div class="drop-svg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -16,26 +16,45 @@
               id="Path_1"
               data-name="Path 1"
               d="M32.71,18.446,22.3,29.129,12.29,18.446ZM6.79,0H38.214V.011a6.783,6.783,0,0,1,6.775,6.768H45V38.214h-.011a6.783,6.783,0,0,1-6.768,6.775V45H6.786v-.011A6.783,6.783,0,0,1,.011,38.221H0V6.786H.011A6.783,6.783,0,0,1,6.779.011V0ZM38.21,5.149H6.779V5.138A1.676,1.676,0,0,0,5.138,6.786h.011V38.221H5.138a1.676,1.676,0,0,0,1.648,1.641v-.011H38.221v.011a1.676,1.676,0,0,0,1.641-1.648h-.011V6.779h.011a1.676,1.676,0,0,0-1.648-1.641v.011Z"
-              fill="#0b5efc"
+              fill="#0B5EFC"
               fill-rule="evenodd"
             />
           </svg>
         </div>
-
         <ul class="dropdown1" aria-label="submenu">
-          <li><a href="#">Sub-1</a></li>
-          <li><a href="#">Sub-2</a></li>
-          <li><a href="#">Sub-3</a></li>
+          <li
+            @click="showData(item.id,item.name)"
+            :key="index"
+            v-for="(item, index) in list"
+          >
+            {{ item.name }}
+          </li>
         </ul>
       </li>
     </ul>
   </nav>
 </template>
-
 <script>
-export default {};
+export default {
+  computed: {
+    list() {
+      return this.$store.getters.getAppoinment;
+    },
+    userName() {
+      return this.$store.getters.getDailyUserName;
+    },
+  },
+  methods: {
+    showData(id,name) {
+      this.$store.dispatch("changedailyUserName", {
+        dailyUserName: name,
+      });
+      this.$store.dispatch("changeDailyUserId", { dailyUserId: id });
+      this.$store.dispatch("getDailyAppinmentsById");
+    },
+  },
+};
 </script>
-
 <style scoped>
 .list-b1 {
   border-top-left-radius: 10px;
@@ -45,7 +64,6 @@ export default {};
 .list-b:hover {
   background-color: #ccd5ff;
 }
-
 ul li ul {
   background: #fff;
   visibility: hidden;
@@ -56,8 +74,8 @@ ul li ul {
   margin-top: 1rem;
   left: 0;
   display: none;
+  z-index:1000
 }
-
 li {
   color: #fff;
   background: #fff;
@@ -70,21 +88,17 @@ li {
   width: 173px;
   border: 1px solid;
 }
-
-li a {
+li {
   color: #6e6c6c;
 }
-
 li:hover,
 li:focus-within {
   background: #eceef8;
   cursor: pointer;
 }
-
-li:focus-within a {
+li:focus-within {
   outline: none;
 }
-
 ul li ul {
   background: #fff;
   visibility: hidden;
@@ -96,7 +110,6 @@ ul li ul {
   left: 0;
   display: none;
 }
-
 ul li:hover > ul,
 ul li:focus-within > ul,
 ul li ul:hover,
@@ -105,12 +118,10 @@ ul li ul:focus {
   opacity: 1;
   display: block;
 }
-
 ul li ul li {
   clear: both;
   width: 100%;
 }
-
 .drop-svg {
   float: right;
 }

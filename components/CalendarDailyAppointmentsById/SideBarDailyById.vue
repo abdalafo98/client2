@@ -30,19 +30,19 @@
       <Filters />
       <RightComponents />
       <div class="calendar-view">
-        <MiddleCalendar />
-        <TableOfCalendar />
+        <MiddleDailyById />
+        <TableOfDailyCalendarById/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Filters from "./Filters.vue";
-import RightComponents from "./RightComponents.vue";
-import Header from "./Header.vue";
-import MiddleCalendar from "./MiddleCalendar.vue";
-import TableOfCalendar from "./TableOfCalendar.vue";
+import Filters from "../CalendarWeeklyAppointments/Filters.vue";
+import RightComponents from "../CalendarWeeklyAppointments/RightComponents.vue";
+import MiddleDailyById from "./MiddleDailyById.vue";
+import Header from "../CalendarWeeklyAppointments/Header.vue";
+import TableOfDailyCalendarById from "./TableOfDailyCalendarById.vue";
 export default {
   data() {
     return {
@@ -53,9 +53,9 @@ export default {
     RightComponents,
     Header,
     Filters,
-    MiddleCalendar,
-    TableOfCalendar,
-  },
+    MiddleDailyById,
+    TableOfDailyCalendarById
+},
 };
 </script>
 

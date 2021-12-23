@@ -1,7 +1,7 @@
 <template>
   <div>
     <tr class="days" :key="index1" v-for="(items, index1) in list">
-      <th class="drname">&nbsp;{{ items.name }}</th>
+      <th class="drname" @click="moveTo(items.id)">&nbsp;{{ items.name }}</th>
 
       <td :key="index2" v-for="(count, index2) in 7" class="day">
         <div
@@ -30,44 +30,6 @@
             v-else-if="item[index1].week[index2].appointments.length > 1"
             :number="item[index1].week[index2].appointments.length"
           />
-          <!-- <h6 v-if="item.week[index2].appointments.length==0">
-        hi  
-        </h6>
-        <h6 v-else>
-        {{item.week[index2].appointments[0].consumer_ID}}
-        </h6> -->
-
-          <!-- <h6 :key="index" v-for="(i, index) in item.week[index2]">
-            {{i[0]}}
-          </h6> -->
-          <!-- <h6 :key="index" v-for="(d, index) in i">{{d}}
-            </h6> -->
-          <!-- {{ item.week[index2].date }} -->
-
-          <!-- .appointments[0].week[index2] -->
-          <!-- <div
-          v-for="(b,index4) in item.week[index3]" :key="index4"
-          >
-            
-            {{b}} 
-          </div> -->
-          <!-- <CardEvent
-            v-if="item[index1].week[index2].appointments.length == 1"
-            :userName="
-              item[0].week[0].appointments.appointment_type
-            "
-            :appointmentTimeFrom="
-              item[0].week[0].appointments.appointment_Date
-            "
-            
-            :appointmentTimeTo="
-             item[0].week[0].appointments.start_Time
-            "
-          />
-           -->
-          <!-- <div :key="index4" v-for="(week ,index4) in item[index1].week" >
-            {{ week }}
-          </div> -->
         </div>
       </td>
     </tr>
@@ -92,6 +54,10 @@ export default {
   methods: {
     console(value) {
       console.log(value);
+    },
+    moveTo(id) {
+      this.$store.dispatch("changeUserId", { userId: id });
+      this.$router.push({ path: "/weeklyCalendarById" });
     },
   },
 

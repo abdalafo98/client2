@@ -1,9 +1,6 @@
 <template>
   <div class="my-app" :style="CalenderLanguage">
     <div id="allTheNav">
-      {{ $t("title") }}
-      <button @click="onChange('en')">EN</button>
-      <button @click="onChange('ar')">AR</button>
       <SideBar />
     </div>
   </div>
@@ -17,10 +14,15 @@ export default {
   },
   created() {
     // this.$cookies.set('lang', this.$store.getters.getLang)
-
-    this.$store.commit("changeStartDate", {
-      startDate: this.getStratDate(new Date(), 6),
-    });
+    
+      
+      this.$store.commit("changeStartDate", {
+        startDate: this.getStratDate(new Date(), 6),
+      });
+    
+  },
+  updated(){
+    
   },
 
   methods: {
@@ -32,38 +34,7 @@ export default {
       }
       return curr;
     },
-    onChange(lang) {
-      this.$cookies.set("lang", lang);
 
-      if (lang === "ar") {
-        this.$store.dispatch("setDirection", {
-          direction: "rtl",
-        });
-        this.$store.dispatch("setAlignment", {
-          alignment: "right",
-        });
-        this.$store.dispatch("setLanguage", {
-          language: lang,
-        });
-        this.$store.dispatch("setPosition", {
-          position: "end",
-        });
-      } else if (lang === "en") {
-        this.$store.dispatch("setDirection", {
-          direction: "ltr",
-        });
-        this.$store.dispatch("setAlignment", {
-          alignment: "left",
-        });
-        this.$store.dispatch("setLanguage", {
-          language: lang,
-        });
-        this.$store.dispatch("setPosition", {
-          position: "start",
-        });
-      }
-      this.$i18n.locale = lang;
-    },
   },
 
   computed: {

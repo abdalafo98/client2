@@ -10,12 +10,14 @@ const Calendar = {
     appointmentsList: [],
     type: "doctor",
     filters: "",
-    dailyDate: "",
     lang: "ar",
   },
 
   mutations: {
     changeStartDate(state, payload) {
+      if (process.client) {
+        localStorage.setItem("startDate", payload.startDate);
+      }
       return (state.startDate = payload.startDate);
     },
     changeStartDate2(state, payload) {
@@ -30,9 +32,7 @@ const Calendar = {
     filterUsers(state, payload) {
       return (state.type = payload.type);
     },
-    changeDailyDate(state, payload) {
-      return (state.dailyDate = payload.dailyDate);
-    },
+
     changeLang(state, payload) {
       return (state.lang = payload.lang);
     },
@@ -62,91 +62,63 @@ const Calendar = {
         context.commit("changeStartDate", { startDate: newD });
       else if (payload.status === "change_startDate2")
         context.commit("changeStartDate2", { startDate2: newD });
+      else if (payload.status === "change_dailyCalendar")
+        context.commit("setDailyDate", { dailyDate: newD });
     },
 
     getFilters(context) {
-      console.log(" type2 ", context.state.type);
-
+      let url = "";
       if (
         context.state.type === "doctor" ||
         context.state.type === "assistant"
       ) {
-        axios
-          .get(
-            `http://localhost:8000/providers/${context.getters.getLanguage}/${context.state.type}`
-          )
-          .then((res) => {
-            // console.log(res, "hhhhh");
-            context.commit("changeList", { list: res.data.filters });
-          });
+        url = `http://localhost:8000/providers/${context.getters.getLanguage}/${context.state.type}`;
       } else if (context.state.type === "rooms") {
-        axios
-          .get(`http://localhost:8000/rooms/${context.getters.getLanguage}`)
-          .then((res) => {
-            console.log(res, "aaaaaaa");
-
-            context.commit("changeList", { list: res.data.filters });
-          });
+        url = `http://localhost:8000/rooms/${context.getters.getLanguage}`;
       } else if (context.state.type === "procedures") {
-        axios
-          .get(`http://localhost:8000/services/${context.getters.getLanguage}`)
-          .then((res) => {
-            context.commit("changeList", { list: res.data.filters });
-          });
+        url = `http://localhost:8000/services/${context.getters.getLanguage}`;
       }
+
+      axios.get(url).then((res) => {
+        context.commit("changeList", { list: res.data.filters });
+      });
     },
 
     getAppoinments(context) {
+      let url = "";
       if (
         context.state.type === "doctor" ||
         context.state.type === "assistant"
       ) {
-        console.log(" type", context.state.type);
-
-        axios
-          .get(
-            `http://localhost:8000/providersWeeklyAppointments/${context.getters.getLanguage}/${context.state.type}/${context.state.startDate}`
-          )
-          .then((res) => {
-            console.log(res.data, context.state.type);
-            context.commit("changeAppointmentsList", {
-              appointmentsList: res.data,
-            });
-          });
+        url = `http://localhost:8000/providersWeeklyAppointments/${context.getters.getLanguage}/${context.state.type}/${context.state.startDate}`;
       } else if (context.state.type === "rooms") {
-        // console.log(" type", context.state.type);
-
-        axios
-          .get(
-            `http://localhost:8000/roomsWeeklyAppointments/${context.getters.getLanguage}/${context.state.startDate}`
-          )
-          .then((res) => {
-            console.log("rooms api" ,res.data, context.state.type);
-            context.commit("changeAppointmentsList", {
-              appointmentsList: res.data,
-            });
-          });
+        url = `http://localhost:8000/roomsWeeklyAppointments/${context.getters.getLanguage}/${context.state.startDate}`;
       } else if (context.state.type === "procedures") {
-        // console.log(" type", context.state.type);
-
-        axios
-          .get(
-            `http://localhost:8000/servicesWeeklyAppointments/${context.getters.getLanguage}/${context.state.startDate}`
-          )
-          .then((res) => {
-            // console.log(res, "services");
-            console.log(res.data, context.state.type);
-            context.commit("changeAppointmentsList", {
-              appointmentsList: res.data,
-            });
-          });
+        url = `http://localhost:8000/servicesWeeklyAppointments/${context.getters.getLanguage}/${context.state.startDate}`;
       }
+      axios.get(url).then((res) => {
+        context.commit("changeAppointmentsList", {
+          appointmentsList: res.data,
+        });
+      });
     },
     getFilterData(context, payload) {
       context.commit("filterUsers", { type: payload.type });
     },
     getDailyDate(context, payload) {
       context.commit("changeDailyDate", { dailyDate: payload.dailyDate });
+    },
+    async workingHour(context, payload) {
+      try {
+        const result = await axios.post(
+          "https://services.agentsoncloud.com/workingHours",
+          payload
+        );
+        console.log(result, "ppopopopopo");
+      } catch (err) {
+        console.log(err.response.data.message);
+        console.log(err.response.status);
+      }
     },
   },
   getters: {
@@ -162,15 +134,14 @@ const Calendar = {
     getAppoinment(state) {
       return state.list;
     },
+
     gettersFilter(state) {
       return state.appointmentsList;
     },
     getFilterData(state) {
       return state.type;
     },
-    getDailyDate(state) {
-      return state.dailyDate;
-    },
+
     getLang(state) {
       return state.lang;
     },

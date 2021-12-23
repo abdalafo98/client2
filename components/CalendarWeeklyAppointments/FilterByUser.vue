@@ -28,9 +28,22 @@ export default {
       this.$store.dispatch("getFilterData", {
         type: title,
       });
-      this.$store.dispatch("getAppoinments");
-      this.$store.dispatch("getFilters");
-      
+      if (this.$route.name === "weeklyappointments") {
+        this.$store.dispatch("getAppoinments");
+        this.$store.dispatch("getFilters");
+      } else if (this.$route.name === "dailyappointments") {
+        this.$store.dispatch("getDailyAppoinments");
+        this.$store.dispatch("getFilters");
+      } else if (this.$route.name === "dailyappointmentsbyid") {
+        this.$store.dispatch("getDailyAppinmentsById");
+        this.$store.dispatch("getFilters");
+      } else if (this.$route.name === "weeklyCalendarById") {
+        this.$store.dispatch("getWeeklyAppointmentById");
+        this.$store.dispatch("changeUserId", {
+          userId: this.$store.getters.getAppoinment[0].id,
+        });
+      }
+
       return title;
     },
   },

@@ -5,8 +5,6 @@ const AppLanguage = {
     alignment: "left",
     position: "start",
     language: "en",
-    
-
   },
   mutations: {
     changeDirection(state, payload) {
@@ -16,6 +14,9 @@ const AppLanguage = {
       return (state.alignment = payload.alignment);
     },
     changeLanguage(state, payload) {
+      if (process.client) {
+        localStorage.setItem("startDate", payload.startDate);
+      }
       return (state.language = payload.language);
     },
     changePosition(state, payload) {
@@ -34,7 +35,7 @@ const AppLanguage = {
       });
     },
     setLanguage(context, payload) {
-        console.log("in setLang ",payload.language);
+      console.log("in setLang ", payload.language);
       context.commit("changeLanguage", {
         language: payload.language,
       });

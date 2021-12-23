@@ -4,44 +4,69 @@
       <h5>Select your working days</h5>
     </div>
     <div class="body-working-hours">
-      <label class="days-container" :key="index" v-for="(day, index) in days">
-        <input type="checkbox" id="checkboxes" />
-        <span class="check-box-custom"></span>
-        <label class="checkbox-label"> {{ day }}</label>
-        <div class="from-to">
-          <input class="time" type="time" name="time"
-          
-           />
-          To
-          <input class="time" type="time" name="time" />
-        </div>
-      </label>
+      <InputDay day="sun" :value.sync="fromSun" :unit.sync="toSun" />
+      <InputDay day="mon" :value.sync="fromMon" :unit.sync="toMon" />
+      <InputDay day="tue" :value.sync="fromTue" :unit.sync="toTue" />
+      <InputDay day="wed" :value.sync="fromWed" :unit.sync="toWed" />
+      <InputDay day="thu" :value.sync="fromThu" :unit.sync="toThu" />
+      <InputDay day="fri" :value.sync="fromFri" :unit.sync="toFri" />
+      <InputDay day="sat" :value.sync="fromSat" :unit.sync="toSat" />
     </div>
   </div>
 </template>
-
 <script>
+import InputDay from "./InputDay.vue";
 export default {
+  components: {
+    InputDay,
+  },
+  updated() {
+    this.$store.dispatch("changeWorkingHours", {
+      workingHours: {
+        sun: { from: this.fromSun, to: this.toSun },
+        mon: { from: this.fromMon, to: this.toMon },
+        tue: { from: this.fromTue, to: this.toTue },
+        wed: { from: this.fromWed, to: this.toWed },
+        thu: { from: this.fromThu, to: this.toThu },
+        fri: { from: this.fromFri, to: this.toFri },
+        sat: { from: this.fromSat, to: this.toSat },
+      },
+    });
+  },
   data() {
     return {
-      days: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ],
+      fromSun: "",
+      toSun: "",
+      fromMon: "",
+      toMon: "",
+      fromTue: "",
+      toTue: "",
+      fromWed: "",
+      toWed: "",
+      fromThu: "",
+      toThu: "",
+      fromFri: "",
+      toFri: "",
+      fromSat: "",
+      toSat: "",
     };
   },
 };
 </script>
-
 <style>
 .wokring-hours {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+.body-working-hours {
+  margin: auto;
+  border: solid 1px black;
+  margin: auto;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 body {
   font-family: "roboto", sans-serif;
@@ -91,7 +116,6 @@ body {
 .days-container input {
   cursor: pointer;
 }
-
 .time {
   width: 110;
   height: 25px;

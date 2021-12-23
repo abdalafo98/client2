@@ -13,7 +13,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .middle {
   text-align: center;
   font-family: sans-serif;

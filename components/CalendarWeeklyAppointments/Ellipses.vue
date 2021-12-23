@@ -9,8 +9,8 @@
       <template #button-content>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="7.5"
-          height="18"
+          width="7"
+          height="14.5"
           viewBox="0 0 8.29 35.98"
         >
           <g
@@ -73,7 +73,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.listofdropdownel {
+  position: absolute;
+  right: -10px;
+  display: flex;
+}
+
 #__BVID__14 {
   float: right;
 }
@@ -93,9 +99,10 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
   font-family: Roboto, sans-serif;
+  font-style: initial;
 }
 .dropdown-item {
-  color: #949191;
+  color: #949191 !important;
   text-decoration: none;
   padding: 8px 25px;
 }

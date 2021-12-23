@@ -4,7 +4,7 @@
       <tr ref="header" class="weekdays">
         <th>&nbsp;</th>
         <th
-          @click="pushTo(getDate(index))"
+          @click="pushTo(index)"
           ref="header"
           :key="day"
           v-for="(day, index) in 7"
@@ -45,8 +45,12 @@ export default {
       } <br/> ${d[1]} ${d[2]}</span>`;
     },
 
-    pushTo(date) {
-      this.$store.dispatch("getDailyDate", { dailyDate: date });
+    pushTo(index) {
+      let date = new Date(this.$store.getters.getStartDate);
+      date.setDate(date.getDate() + index);
+      console.log(`daily date ${date}`);
+
+      this.$store.dispatch("changeDailyDate2", { dailyDate: date });
       this.$router.push("dailyappointments");
     },
   },

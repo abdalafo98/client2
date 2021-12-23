@@ -1,51 +1,41 @@
 <template>
   <div>
-    <label for="datepicker-full-width"></label>
-    <b-form-datepicker
-      id="datepicker-full-width"
-      v-model="value"
-      menu-class="w-100"
-      calendar-width="100%"
-      class="mb-2"
-      :date-format-options="{
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-      }"
-    ></b-form-datepicker>
-    {{value}}
+    <Datepicker />
   </div>
 </template>
 <script>
-import WorkingHour from "./WorkingHour";
+import Datepicker from "../components/CalendarWeeklyAppointments/datepicker.vue";
+
 export default {
-    props: ['value'],
-  components: { WorkingHour },
-  watch:{
-    value(v) { this.$emit('update:value', v); },
-  }
+  data() {
+    return {
+      value: "",
+    };
+  },
+  props: {},
+  components: { Datepicker },
 };
 </script>
 <style>
 #datepicker-full-width {
-  background-color: #ECEEF8;
+  background-color: #eceef8;
 }
 .btn .b-icon.bi,
 .nav-link .b-icon.bi,
 .dropdown-toggle .b-icon.bi,
 .dropdown-item .b-icon.bi,
 .input-group-text .b-icon.bi {
-  color: #0B5EFC;
+  color: #0b5efc;
 }
 .btn-primary:not([disabled]):not(.disabled).active {
-  background-color: #0B5EFC;
+  background-color: #0b5efc;
 }
 .form-control:focus {
   color: #495057;
   background-color: #fff;
   outline: none;
   box-shadow: none !important;
-  border: 1px solid #CED4DA;
+  border: 1px solid #ced4da;
 }
 .form-control {
   display: block;
@@ -57,7 +47,7 @@ export default {
   background-color: #fff;
   background-image: none;
   background-clip: padding-box;
-  border: 1px solid #CED4DA;
+  border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }

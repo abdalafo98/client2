@@ -2,44 +2,73 @@
   <div class="allparts">
     <h5 class="duration">Select dates to define work duration</h5>
     <div class="date-picker1">
-      <div class="part1"><Datefrom /></div>
+      <div class="part1"><Datefrom :value.sync="from" /></div>
       <div>To</div>
       <div class="part2">
-        <Datefrom />
+        <Datefrom :value.sync="to" />
       </div>
     </div>
-    <div class="a">Kindly fill the information below</div>
+    <div @click="a" class="a">Kindly fill the information below</div>
     <WorkingHour />
+    <button @click="workingHours">Send</button>
+    <button @click="a">a</button>
   </div>
 </template>
 <script>
 import Datefrom from "./Datefrom.vue";
-import WorkingHour from "./workingHour.vue";
+import WorkingHour from "./WorkingHour.vue";
 export default {
+  computed: {
+    getWorkingHours() {
+      return this.$store.getters.getWorkingHours;
+    },
+  },
+  data() {
+    return {
+      from: "",
+      to: "",
+      day1: "",
+      timeFrom: "",
+      timeTo: "",
+    };
+  },
   components: {
     Datefrom,
     WorkingHour,
+  },
+  methods: {
+    a() {
+      console.log("objectOfDays", this.from, this.to);
+      console.log("token id", this.$store.getters.getTokenId);
+    },
+    workingHours() {
+      this.$store.dispatch("workingHour", {
+        objectOfDays: this.getWorkingHours,
+        fromDate: this.from,
+        toDate: this.to,
+        token: this.$store.getters.getTokenId,
+      });
+    },
   },
   props: {},
 };
 </script>
 <style>
 .a {
-  background-color: #0b5efc;
+  background-color: #0B5EFC;
   text-align: center;
   color: white;
   width: 70%;
-  height:50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px auto;
-  border-radius:5px;
-
+  border-radius: 5px;
 }
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f7f7f7;
+  background-color: #F7F7F7;
   overflow-x: hidden;
   color: #949191;
 }
